@@ -1,6 +1,16 @@
-/** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-}
+  webpack: (config, { isServer }) => {
+    // Add gltf loader rule
+    config.module.rules.push({
+      test: /\.(gltf)$/,
+      use: {
+        loader: 'file-loader',
+      },
+    });
 
-module.exports = nextConfig
+    return config;
+  },
+};
+
+module.exports = nextConfig;
