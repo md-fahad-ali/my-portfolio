@@ -20,6 +20,18 @@ body {
   
 }
 
-#leva__root > * {
-  z-index: 9999999999;
+canvas.canvasStyle{
+  z-index: -1;
+}
+
+.monitor{
+  position: fixed !important;
+}
+
+.scrolling{
+  scroll-snap-type: mandatory;
+}
+
+.scrolling > section {
+  
 }

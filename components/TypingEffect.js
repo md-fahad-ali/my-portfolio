@@ -16,7 +16,7 @@ const TypingEffect = (props) => {
             try {
                 for (let i = 0; i < 100; i++) {
                     setIndex(i)
-                    await new Promise((resolve) => setTimeout(resolve, 50));
+                    await new Promise((resolve) => setTimeout(resolve, 10));
                 }
                 console.log("Loading complete!");
                 setLoading(true);
