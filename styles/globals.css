@@ -16,22 +16,24 @@
   }
 }
 
-body {
+body {}
+
+canvas {
+  /* touch-action: auto !important; */
   
 }
 
-canvas.canvasStyle{
+canvas.canvasStyle {
   z-index: -1;
 }
 
-.monitor{
+.monitor {
   position: fixed !important;
+
 }
 
-.scrolling{
+.scrolling {
   scroll-snap-type: mandatory;
 }
 
-.scrolling > section {
-  
-}
+.scrolling>section {}

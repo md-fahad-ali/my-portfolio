@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { TypeAnimation } from 'react-type-animation';
-import { Roboto_Mono } from 'next/font/google'
 import { ProgressBar } from './ProgressBar';
 
 const TypingEffect = (props) => {
@@ -24,36 +23,40 @@ const TypingEffect = (props) => {
                 console.error("Error fetching data:", error);
             }
         }
-        typingStatus2 ?  fetchLoading()  : ""
+        typingStatus2 ? fetchLoading() : ""
     }, [typingStatus, typingStatus2])
-console.log(typingStatus);
+    // console.log(typingStatus);
 
-return (
-    <div className={' p-10 sm:p-20'}>
 
-        <TypeAnimation
-            style={{ whiteSpace: 'pre-line', fontWeight: 'bold', fontFamily: 'monospace', color: 'white', display: 'block', fontSize: '1.5em' }}
-            sequence={[
-                `Hello, I am Md.Fahad Ali \n I am a Web developer`,
-                1000,
 
-                `Hello, I am Md.Fahad Ali \n I am a Web designer`,
-                2000,
 
-                `Hello, I am Md.Fahad Ali \n I am a Linux expert`,
-                2000,
-                () => {
-                    setTypingStatus(true);
-                },
-                1000,
-            ]}
-            repeat={false}
-            wrapper="span"
-            className={`type`}
-            cursor={true}
-        />
-        <style global jsx>
-            {`
+
+    return (
+        <div className={' p-10 sm:p-20'}>
+
+            <TypeAnimation
+                style={{ whiteSpace: 'pre-line', fontWeight: 'bold', fontFamily: 'monospace', color: 'white', display: 'block', fontSize: '1.5em' }}
+                sequence={[
+                    `Hello, I am Md.Fahad Ali \n I am a Web developer`,
+                    1000,
+
+                    `Hello, I am Md.Fahad Ali \n I am a Web designer`,
+                    2000,
+
+                    `Hello, I am Md.Fahad Ali \n I am a Linux expert`,
+                    2000,
+                    () => {
+                        setTypingStatus(true);
+                    },
+                    1000,
+                ]}
+                repeat={false}
+                wrapper="span"
+                className={`type`}
+                cursor={true}
+            />
+            <style global jsx>
+                {`
             .type::after {
             content: '|';
             color:white;
@@ -66,24 +69,24 @@ return (
             }
             }
             `}
-        </style>
-        {typingStatus && <TypeAnimation
-            style={{ whiteSpace: 'pre-line', height: '100px', fontFamily: 'monospace', color: 'white', display: 'block', fontSize: '1.5em' }}
-            sequence={[
-                ` Hey wanted to know more about me`,
-                1000,
-                () => {
-                    setTypingStatus2(true);
-                },
-                1000,
-            ]}
-            repeat={false}
-            wrapper="span"
-            className='type2'
-            cursor={true}
-        />}
-        <style global jsx>
-            {`
+            </style>
+            {typingStatus && <TypeAnimation
+                style={{ whiteSpace: 'pre-line', height: '100px', fontFamily: 'monospace', color: 'white', display: 'block', fontSize: '1.5em' }}
+                sequence={[
+                    ` Hey wanted to know more about me`,
+                    1000,
+                    () => {
+                        setTypingStatus2(true);
+                    },
+                    1000,
+                ]}
+                repeat={false}
+                wrapper="span"
+                className='type2'
+                cursor={true}
+            />}
+            <style global jsx>
+                {`
             .type2::after {
             content: '|';
             color:white;
@@ -95,27 +98,34 @@ return (
             }
             }
             `}
-        </style>
+            </style>
 
-        <div>
+            <div>
 
-            {typingStatus2 && <div className='text-white flex content-center justify-center'>
+                {typingStatus2 && <div className='text-white flex content-center justify-center'>
 
-                <br /><div>
-                    
-                    {loading ? <div className={"border border-white p-5 flex justify-center flex-col w-[max(20vmax,25vmax)]"}>
-                        <h1 style={{ fontFamily: "monospace" }}>Press Enter</h1><br />
-                        <button className='text-white border px-5 py-2' onClick={()=>{
-                            props?.setIsClicked(true);
-                        }}>Enter</button>
-                    </div> : <div className={""}>
-                        Loading Environment: <ProgressBar range={index} />
-                    </div>}
-                </div>
-            </div>}
+                    <br /><div>
+
+                        {loading ? <div className={"border border-white p-5 flex justify-center flex-col w-[max(20vmax,25vmax)]"}>
+                            <h1 style={{ fontFamily: "monospace" }}>Press Enter</h1><br />
+                            <button className='text-white border px-5 py-2' onClick={() => {
+                                props?.setIsClicked(true);
+                                props?.openAnimation();
+                            }}>Enter</button>
+                        </div> : <div className={""}>
+                            Loading Environment: <ProgressBar range={index} />
+                        </div>}
+                    </div>
+                </div>}
+
+                <audio id="myAudio">
+                    <source src="/sounds/typing.mp3" type="audio/mp3" />
+                </audio>
+            </div>
+
+
         </div>
-    </div>
-);
+    );
 };
 
 export default TypingEffect

@@ -1,0 +1,13 @@
+.project {
+    filter: grayscale(1);
+    mix-blend-mode: screen;
+}
+
+.project:hover {
+    color: transparent;
+    /* border-width: 0.5px; */
+    filter: grayscale(0);
+    mix-blend-mode: normal;
+    border-style: solid;
+    /* border-image: linear-gradient(to right, darkblue, darkorchid) 1; */
+}

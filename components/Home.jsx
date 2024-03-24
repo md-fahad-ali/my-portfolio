@@ -25,7 +25,7 @@ const TypingEffect = (props) => {
     }
     typingStatus2 ? fetchLoading() : "";
   }, [typingStatus, typingStatus2]);
-  console.log(typingStatus);
+  // console.log(typingStatus);
 
   return (
     <div className={" p-9"}>
