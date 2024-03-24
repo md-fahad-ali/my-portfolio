@@ -48,7 +48,7 @@ export function Model(props) {
 
   console.log("from Roomnew", check, setOpen);
 
-  const { nodes, materials } = useGLTF("/models/Roomx.glb");
+  const { nodes, materials } = useGLTF("/models/untitled.glb");
 
   // const [open, setOpen] = useState(false);
   const [another, setAnother] = useState(false);
@@ -476,4 +476,4 @@ export function Model(props) {
   );
 }
 
-useGLTF.preload("/models/Roomx.glb");
+useGLTF.preload("/models/untitled.glb");
