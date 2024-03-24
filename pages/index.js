@@ -2,6 +2,7 @@ import React, { Suspense, useEffect, useRef, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { ScrollControls } from '@react-three/drei';
 import { Model } from '@/components/Roomnew';
+
 import TypingEffect from '@/components/TypingEffect';
 import { useControls } from 'leva';
 import gsap from 'gsap';
@@ -16,6 +17,7 @@ import { PerspectiveCamera } from '@theatre/r3f'
 import demoProjectState from './animations/state.json'
 import demoState from './animations/cube2.json'
 import Image from 'next/image';
+import Mytag from '@/components/Headers';
 
 
 // const CameraScene = (props) => {
@@ -90,6 +92,7 @@ export default function App() {
   //   studio.initialize()
   //   studio.extend(extension)
   // }
+
 
   const [open, setOpen] = useState(false);
   const [mdata, setMdata] = useState([]);
@@ -179,7 +182,9 @@ export default function App() {
 
   return (
     <div className="w-full h-screen relative">
-
+      <div>
+        <Mytag />
+      </div>
       <Canvas
         gl={{ antialias: true, toneMapping: THREE.NoToneMapping }}
         onCreated={({ gl }) => {
