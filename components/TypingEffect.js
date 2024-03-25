@@ -37,7 +37,7 @@ const TypingEffect = (props) => {
             <TypeAnimation
                 style={{ whiteSpace: 'pre-line', fontWeight: 'bold', fontFamily: 'monospace', color: 'white', display: 'block', fontSize: '1.5em' }}
                 sequence={[
-                    `Hello, I am Md.Fahad Ali \n I am a Web developer`,
+                    `Hello, I am Md.Fahad Ali \n I am a Full stack developer`,
                     1000,
 
                     `Hello, I am Md.Fahad Ali \n I am a Web designer`,
