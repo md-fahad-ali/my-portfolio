@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect, useRef, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { ScrollControls } from '@react-three/drei';
+import { Html, Scroll, ScrollControls, useScroll } from '@react-three/drei';
 import { Model } from '@/components/Roomnew';
 
 import TypingEffect from '@/components/TypingEffect';
@@ -18,7 +18,9 @@ import demoProjectState from './animations/state.json'
 import demoState from './animations/cube2.json'
 import Image from 'next/image';
 import Mytag from '@/components/Headers';
-
+import Lottie from "lottie-react";
+import animation from "../pages/projects/animation.json";
+// import styles from "@/styles/Project.module.css";
 
 // const CameraScene = (props) => {
 
@@ -77,9 +79,20 @@ import Mytag from '@/components/Headers';
 //   );
 // }
 
+function CheckScorlling(props) {
+  const data = useScroll();
+
+  useFrame(() => {
+
+    props?.setIsShow(data.offset)
+  })
+  return <mesh {...props} />
+}
+
 export default function App() {
   const [isClicked, setIsClicked] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [show, setShow] = useState(true);
 
 
   const modelRef = useRef();
@@ -88,11 +101,21 @@ export default function App() {
   const [changeState, setChangeState] = useState();
   const [device, setDevice] = useState(false);
 
+  const [isShow, setIsShow] = useState();
   // if (process.env.NODE_ENV === 'development') {
   //   studio.initialize()
   //   studio.extend(extension)
   // }
 
+  useEffect(() => {
+    if (isShow) {
+      // console.log("hi");
+      setShow(true);
+    } else {
+      // console.log("no scrolling");
+      setShow(false);
+    }
+  }, [isShow])
 
   const [open, setOpen] = useState(false);
   const [mdata, setMdata] = useState([]);
@@ -101,7 +124,7 @@ export default function App() {
     setOpen(true);
   }
 
-  console.log(mdata);
+  // console.log(mdata);
 
   useEffect(() => {
     window.onresize = () => {
@@ -111,7 +134,6 @@ export default function App() {
       } else {
         setDevice(false)
         setChangeState(demoState)
-
       }
     }
     if (window.innerWidth < 1025) {
@@ -120,9 +142,15 @@ export default function App() {
     } else {
       setDevice(false)
       setChangeState(demoState)
-
     }
-  }, [])
+    isClicked && setTimeout(() => {
+      // console.log("i am back");
+    }, 1500);
+
+
+
+    // console.log(isShow);
+  }, [isClicked, isShow])
 
 
 
@@ -153,8 +181,6 @@ export default function App() {
       setLoading(false);
     }, 2000);
 
-
-
     // Add your other animations with ScrollTrigger here
 
   }, [modRef, modelRef.position]);
@@ -178,10 +204,8 @@ export default function App() {
 
   }
 
-
-
   return (
-    <div className="w-full h-screen relative">
+    <div className="w-full h-screen relative" >
       <div>
         <Mytag />
       </div>
@@ -193,64 +217,82 @@ export default function App() {
         }}
         style={{ visibility: isClicked ? 'visible' : 'hidden', position: 'fixed' }}
         className={`fixed top-0 w-full pointer-events-none bg-transparent canvasStyle`}
+        // onScroll={() => { console.log("hi") }}
       >
-        {device ? <SheetProvider sheet={demoSheet}>
+        <Suspense fallback={<p className='text-black'>Loading ....</p>}>
+          {device ?
+            <SheetProvider sheet={demoSheet}>
 
-          <ScrollControls pages={3} damping={0.5}>
-            <PerspectiveCamera
-              // ref={camera}
-              theatreKey="Camera"
-              position={[1.27, 1.75, 1.1]}
-              rotation={[0, 0, 0]}
-              shadow={{
-                bias: 0.001,
-                near: 0.1,
-                far: 1000,
-                focus: 1,
-                fov: 30,
-              }}
-              // rotateY={10}
-              makeDefault
-            />
-            <ambientLight />
-            <e.pointLight theatreKey="Light" position={[10, 10, 10]} />
-            <e.mesh theatreKey="Cube">
-              <Model ref={modRef} setOpen={setOpen} openModal={openModal} mdata={mdata} setMdata={setMdata} />
-            </e.mesh>
-          </ScrollControls>
+              <ScrollControls pages={3} damping={0.5}>
+                <CheckScorlling setIsShow={setIsShow} isShow={isShow} />
+                <PerspectiveCamera
+                  // ref={camera}
+                  theatreKey="Camera"
+                  position={[1.27, 1.75, 1.1]}
+                  rotation={[0, 0, 0]}
+                  shadow={{
+                    bias: 0.001,
+                    near: 0.1,
+                    far: 1000,
+                    focus: 1,
+                    fov: 30,
+                  }}
+                  // rotateY={10}
+                  makeDefault
+                />
+                <ambientLight />
+                <e.pointLight theatreKey="Light" position={[10, 10, 10]} />
+                <e.mesh ref={(el) => setModRef(el)} theatreKey="Cube">
+                  <Suspense fallback={true}>
+                    <Model
+                      setOpen={setOpen} openModal={openModal} mdata={mdata} setMdata={setMdata} />
+                  </Suspense>
+                </e.mesh>
 
-        </SheetProvider> :
-          <SheetProvider sheet={demoSheet2}>
+              </ScrollControls>
 
-            <ScrollControls pages={3} damping={0.5}>
-              <PerspectiveCamera
-                // ref={camera}
-                theatreKey="Camera"
-                position={[1.27, 1.75, 1.1]}
-                rotation={[0, 0, 0]}
-                shadow={{
-                  bias: 0.001,
-                  near: 0.1,
-                  far: 1000,
-                  focus: 1,
-                  fov: 30,
-                }}
-                // rotateY={10}
-                makeDefault
-              />
-              <ambientLight />
-              <e.pointLight theatreKey="Light" position={[10, 10, 10]} />
-              <e.mesh ref={(el) => setModRef(el)} theatreKey="Cube">
-                <Suspense fallback={true}>
-                  <Model
-                    setOpen={setOpen} openModal={openModal} mdata={mdata} setMdata={setMdata} />
-                </Suspense>
-              </e.mesh>
-            </ScrollControls>
+            </SheetProvider> :
+            <SheetProvider sheet={demoSheet2}>
 
-          </SheetProvider>}
+              <ScrollControls pages={3} damping={0.5}>
+                <CheckScorlling setIsShow={setIsShow} isShow={isShow} />
+                <PerspectiveCamera
+                  // ref={camera}
+                  theatreKey="Camera"
+                  position={[1.27, 1.75, 1.1]}
+                  rotation={[0, 0, 0]}
+                  shadow={{
+                    bias: 0.001,
+                    near: 0.1,
+                    far: 1000,
+                    focus: 1,
+                    fov: 30,
+                  }}
+                  // rotateY={10}
+                  makeDefault
+                />
+                <ambientLight />
+                <e.pointLight theatreKey="Light" position={[10, 10, 10]} />
+                <e.mesh ref={(el) => setModRef(el)} theatreKey="Cube">
+                  <Suspense fallback={true}>
+                    <Model
+                      setOpen={setOpen} openModal={openModal} mdata={mdata} setMdata={setMdata} />
+                  </Suspense>
+                </e.mesh>
+
+              </ScrollControls>
+
+            </SheetProvider>}
+        </Suspense>
       </Canvas>
-
+      <div className=' absolute left-[45vw] flex items-center gap-3 p-3 rounded-full text-white bottom-[3vw]' style={{
+        background: "#000000db",
+        visibility: isClicked && !show ? 'visible' : 'hidden', position: 'fixed'
+      }}
+      >
+        <Lottie animationData={animation} className='w-[30px]' loop={true} />
+        <p> Scroll down </p>
+      </div>
       {!isClicked && !loading && (
         <div className="w-full h-screen bg-black absolute z-[999999999] top-0 left-0">
           <TypingEffect setIsClicked={setIsClicked} openAnimation={openAnimation} />

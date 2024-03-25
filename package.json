@@ -20,6 +20,7 @@
     "fs": "^0.0.1-security",
     "gsap": "^3.12.5",
     "leva": "^0.9.35",
+    "lottie-react": "^2.4.0",
     "next": "14.0.4",
     "postprocessing": "^6.35.2",
     "progress-bar-cli": "^1.0.4",

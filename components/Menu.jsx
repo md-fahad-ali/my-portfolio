@@ -10,7 +10,7 @@ function Menu(props) {
 
   const { setOpen, setMdata, mdata } = props;
 
-  console.log("from menu", setOpen);
+  // console.log("from menu", setOpen);
 
   // useEffect(() => {
   //   // console.log(menuRef?.current?.scrollLeft);
@@ -32,8 +32,8 @@ function Menu(props) {
                 loading="eager"
                 priority
                 onClick={() => {
-                  console.log(el);
-                  console.log(setOpen);
+                  // console.log(el);
+                  // console.log(setOpen);
                   setOpen(true);
                   setMdata(el);
 
@@ -48,6 +48,8 @@ function Menu(props) {
             </div>
           ))}
         </Slider>
+        
+        <p className="relative top-5 bg-slate-600 rounded-full text-slate-400 text-center">{"Click > next or swap Left/Right"}</p>
       </div>
     </div>
   );

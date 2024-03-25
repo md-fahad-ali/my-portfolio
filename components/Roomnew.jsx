@@ -46,7 +46,7 @@ function Bloom({ children }) {
 export function Model(props) {
   const { check, setOpen, mdata, setMdata } = props;
 
-  console.log("from Roomnew", check, setOpen);
+  // console.log("from Roomnew", check, setOpen);
 
   const { nodes, materials } = useGLTF("/models/untitled.glb");
 
@@ -373,7 +373,7 @@ export function Model(props) {
           >
             {another ? (
               <div className="text-white">
-                {console.log("props", props)}
+                {/* {console.log("props", props)} */}
                 <Contact />
               </div>
             ) : (
