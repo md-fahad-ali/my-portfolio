@@ -5,6 +5,7 @@ import { ProgressBar } from './ProgressBar';
 const TypingEffect = (props) => {
     const [typingStatus, setTypingStatus] = useState(false);
     const [typingStatus2, setTypingStatus2] = useState(false);
+    const [typingStatus3, setTypingStatus3] = useState(false);
 
     const [loading, setLoading] = useState(false);
     const [index, setIndex] = useState(0);
@@ -71,9 +72,9 @@ const TypingEffect = (props) => {
             `}
             </style>
             {typingStatus && <TypeAnimation
-                style={{ whiteSpace: 'pre-line', height: '100px', fontFamily: 'monospace', color: 'white', display: 'block', fontSize: '1.5em' }}
+                style={{ whiteSpace: 'pre-line', height: '100px', fontWeight: 'bold', fontFamily: 'monospace', color: 'white', display: 'block',paddingBottom:"10px", fontSize: '1.5em' }}
                 sequence={[
-                    ` Hey wanted to know more about me`,
+                    `I am From Bangladesh.I have a year of experience in developing Web Applications.`,
                     1000,
                     () => {
                         setTypingStatus2(true);
@@ -82,9 +83,40 @@ const TypingEffect = (props) => {
                 ]}
                 repeat={false}
                 wrapper="span"
+                className={`type`}
+                cursor={true}
+            />}
+            <style global jsx>
+                {`
+            .type::after {
+            content: '|';
+            color:white;
+            display: ${typingStatus ? 'none' : ''};   
+            animation: cursor 1.1s infinite step-start;
+            }
+            @keyframes cursor {
+            50% {
+                opacity: 0;
+            }
+            }
+            `}
+            </style>
+            {typingStatus2 && <TypeAnimation
+                style={{ whiteSpace: 'pre-line', height: '100px', fontFamily: 'monospace', color: 'white', display: 'block', fontSize: '1.5em' }}
+                sequence={[
+                    `\n Hey wanted to know more about me`,
+                    1000,
+                    () => {
+                        setTypingStatus3(true);
+                    },
+                    1000,
+                ]}
+                repeat={false}
+                wrapper="span"
                 className='type2'
                 cursor={true}
             />}
+
             <style global jsx>
                 {`
             .type2::after {
@@ -102,11 +134,11 @@ const TypingEffect = (props) => {
 
             <div>
 
-                {typingStatus2 && <div className='text-white flex content-center justify-center'>
+                {typingStatus3 && <div className='text-white flex content-center justify-center'>
 
                     <br /><div>
 
-                        {loading ? <div className={"border border-white p-5 flex justify-center flex-col w-[max(20vmax,25vmax)]"}>
+                        {loading ? <div className={"border border-white p-5 flex justify-center flex-col w-[70vmin] sm:w-[max(20vmax,25vmax)]"}>
                             <h1 style={{ fontFamily: "monospace" }}>Press Enter</h1><br />
                             <button className='text-white border px-5 py-2' onClick={() => {
                                 props?.setIsClicked(true);

@@ -8,9 +8,7 @@
     "start": "next start",
     "lint": "next lint"
   },
-  "engines": {
-    "node": "^18.18.0"
-  },
+  
   "dependencies": {
     "@lifarl/react-scroll-snap-slider": "^2.0.5",
     "@react-three/drei": "^9.76.0",

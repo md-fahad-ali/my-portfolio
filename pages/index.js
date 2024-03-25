@@ -285,7 +285,7 @@ export default function App() {
             </SheetProvider>}
         </Suspense>
       </Canvas>
-      <div className=' absolute left-[45vw] flex items-center gap-3 p-3 rounded-full text-white bottom-[3vw]' style={{
+      <div className=' absolute left-[33vw] sm:left-[45vw] flex items-center gap-3 p-3 rounded-full text-white bottom-[3vw]' style={{
         background: "#000000db",
         visibility: isClicked && !show ? 'visible' : 'hidden', position: 'fixed'
       }}

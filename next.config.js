@@ -1,4 +1,3 @@
-
 const nextConfig = {
   reactStrictMode: true,
   webpack: (config, { isServer }) => {
@@ -12,8 +11,6 @@ const nextConfig = {
 
     return config;
   },
-  output: 'export',
-  distDir: 'dist',
   images: {
     remotePatterns: [
       {
@@ -23,7 +20,6 @@ const nextConfig = {
       },
     ],
   },
-  
 };
 
 module.exports = nextConfig;

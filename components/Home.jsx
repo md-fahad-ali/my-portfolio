@@ -6,6 +6,7 @@ import { ProgressBar } from "./ProgressBar";
 const TypingEffect = (props) => {
   const [typingStatus, setTypingStatus] = useState(false);
   const [typingStatus2, setTypingStatus2] = useState(false);
+  const [typingStatus3, setTypingStatus3] = useState(false);
 
   const [loading, setLoading] = useState(false);
   const [index, setIndex] = useState(0);
@@ -28,6 +29,7 @@ const TypingEffect = (props) => {
   // console.log(typingStatus);
 
   return (
+    
     <div className={" p-9"}>
       <TypeAnimation
         style={{
@@ -38,7 +40,7 @@ const TypingEffect = (props) => {
           display: "block",
         }}
         sequence={[
-          `Hello, I am Md.Fahad Ali \n I am a Web developer`,
+          `Hello, I am Md.Fahad Ali \n I am a Full stack developer`,
           1000,
 
           `Hello, I am Md.Fahad Ali \n I am a Web designer`,
@@ -47,7 +49,7 @@ const TypingEffect = (props) => {
           `Hello, I am Md.Fahad Ali \n I am a Linux expert`,
           2000,
 
-          `Hello, I am Md.Fahad Ali \n I am a Web Developer`,
+          `Hello, I am Md.Fahad Ali \n I am a Full stack Developer`,
           2000,
           () => {
             setTypingStatus(true);
