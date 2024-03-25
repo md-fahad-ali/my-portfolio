@@ -2,6 +2,7 @@
 import Head from "next/head";
 
 function Mytag() {
+  
   return (
     <>
       <Head>
@@ -21,7 +22,7 @@ function Mytag() {
           property="og:description"
           content="Hello, I am Fahad Ali. I am a full-stack developer with years of experience. I can work with Html, CSS, React.js, Next.js, Webgl, Tailwind, Express, and Mongo/SQL."
         />
-        <meta property="og:image" content="/public/logo.png" />
+        <meta property="og:image" content="/logo.png" />
         {/* Add width and height for the image */}
         <meta property="og:image:width" content="600" />
         <meta property="og:image:height" content="314" />
@@ -34,7 +35,7 @@ function Mytag() {
           property="twitter:description"
           content="Hello, I am Fahad Ali. I am a full-stack developer with years of experience. I can work with Html, CSS, React.js, Next.js, Webgl, Tailwind, Express, and Mongo/SQL."
         />
-        <meta property="twitter:image" content="/public/logo.png" />
+        <meta property="twitter:image" content="/logo.png" />
         {/* Add width and height for the image */}
         <meta property="twitter:image:width" content="600" />
         <meta property="twitter:image:height" content="314" />
