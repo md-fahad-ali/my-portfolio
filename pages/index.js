@@ -279,7 +279,7 @@ export default function App() {
                 <ambientLight />
                 <e.pointLight theatreKey="Light" position={[10, 10, 10]} />
                 <e.mesh ref={(el) => setModRef(el)} theatreKey="Cube">
-                  <Suspense fallback={true}>
+                  <Suspense fallback={<p>Loading ....</p>}>
                     <Model
                       setOpen={setOpen} openModal={openModal} mdata={mdata} setMdata={setMdata} />
                   </Suspense>
