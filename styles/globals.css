@@ -20,7 +20,7 @@ body {}
 
 canvas {
   /* touch-action: auto !important; */
-  
+
 }
 
 canvas.canvasStyle {
@@ -37,3 +37,48 @@ canvas.canvasStyle {
 }
 
 .scrolling>section {}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+
+  border-radius: 10px;
+}
+
+
+::-webkit-scrollbar-thumb {
+  background: #383838;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px 1px black;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #0a0a14;
+}
+
+#custom-cursor {
+  top: 766px;
+  left: 1211px;
+  position: fixed;
+  width: 50px;
+  height: 50px;
+  background: transparent;
+  border: 3px solid white;
+  z-index: 99;
+  border-radius: 50%;
+  
+}
+
+#another-cursor{
+  position: relative;
+  top: 20px;
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  background: white;
+  left: 20px;
+}

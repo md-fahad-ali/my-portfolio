@@ -16,7 +16,7 @@ const TypingEffect = (props) => {
             try {
                 for (let i = 0; i < 100; i++) {
                     setIndex(i)
-                    await new Promise((resolve) => setTimeout(resolve, 10));
+                    await new Promise((resolve) => setTimeout(resolve, 50));
                 }
                 console.log("Loading complete!");
                 setLoading(true);
@@ -74,7 +74,7 @@ const TypingEffect = (props) => {
             {typingStatus && <TypeAnimation
                 style={{ whiteSpace: 'pre-line', height: '100px', fontWeight: 'bold', fontFamily: 'monospace', color: 'white', display: 'block',paddingBottom:"10px", fontSize: '1.5em' }}
                 sequence={[
-                    `I am From Bangladesh.I have a year of experience in developing Web Applications.`,
+                    `I am From Bangladesh.I have an year of experience in developing Web Applications.`,
                     1000,
                     () => {
                         setTypingStatus2(true);
@@ -150,9 +150,7 @@ const TypingEffect = (props) => {
                     </div>
                 </div>}
 
-                <audio id="myAudio">
-                    <source src="/sounds/typing.mp3" type="audio/mp3" />
-                </audio>
+              
             </div>
 
 
