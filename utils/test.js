@@ -1,7 +1,8 @@
 import React, { Suspense, useEffect, useRef, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { OrbitControls, Center, CameraControls, ScrollControls, Scroll, Html, useScroll } from '@react-three/drei';
-import { Model } from '@/components/Roomx';
+import { Html, Scroll, ScrollControls, useScroll } from '@react-three/drei';
+import { Model } from '@/components/Roomnew';
+
 import TypingEffect from '@/components/TypingEffect';
 import { useControls } from 'leva';
 import gsap from 'gsap';
@@ -9,16 +10,20 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import * as THREE from 'three';
 import { getProject } from '@theatre/core';
 
-import studio from '@theatre/studio'
-import extension from '@theatre/r3f/dist/extension'
+// import studio from '@theatre/studio'
+// import extension from '@theatre/r3f/dist/extension'
 import { editable as e, SheetProvider } from '@theatre/r3f'
 import { PerspectiveCamera } from '@theatre/r3f'
 import demoProjectState from './animations/state.json'
-import Modal from 'react-responsive-modal';
+import demoState from './animations/cube2.json'
 import Image from 'next/image';
+import Mytag from '@/components/Headers';
+import Lottie from "lottie-react";
+import animation from "../pages/projects/animation.json";
+import Link from 'next/link'
 
-// studio.initialize()
-// studio.extend(extension)
+
+// import styles from "@/styles/Project.module.css";
 
 // const CameraScene = (props) => {
 
@@ -26,7 +31,7 @@ import Image from 'next/image';
 //   const { cameraRef } = props;
 //   const { cameraRotationX, cameraRotationY, cameraRotationZ } = useControls({
 //     cameraRotationX: 0,
-//     cameraRotationY: 1.55,
+//     cameraRotationY: 0,
 //     cameraRotationZ: 0,
 //   });
 
@@ -37,12 +42,6 @@ import Image from 'next/image';
 //   useFrame(() => {
 //     // Update the camera's rotation based on Leva controls
 //     cameraRef.current.rotation.set(cameraRotationX, cameraRotationY, cameraRotationZ);
-//     if (window.innerWidth > window.innerHeight) {
-//       console.log("upper");
-//       // cameraRef.current.fov = 0.3;
-//     } else {
-//       // cameraRef.current.fov = 0.1;
-//     }
 //   });
 
 //   return (
@@ -70,61 +69,101 @@ import Image from 'next/image';
 // };
 
 
-function Loading() {
-  const { progress } = useProgress();
+// function Loading() {
+//   const { progress } = useProgress();
 
-  // Determine if loading is complete
-  const isLoadingComplete = progress < 100;
+//   // Determine if loading is complete
+//   const isLoadingComplete = progress < 100;
 
-  return (
-    <div className={`w-full h-screen flex items-center justify-center bg-black absolute z-[999] ${isLoadingComplete ? '' : 'hidden'}`}>
-      <p>{progress} Loading...</p>
-    </div>
-  );
+//   return (
+//     <div className={`w-full h-screen flex items-center justify-center bg-black absolute z-[999] ${isLoadingComplete ? '' : 'hidden'}`}>
+//       <p>{progress} Loading...</p>
+//     </div>
+//   );
+// }
+
+function CheckScorlling(props) {
+  const data = useScroll();
+
+  useFrame(() => {
+
+    props?.setIsShow(data.offset)
+  })
+  return <mesh {...props} />
 }
 
 export default function App() {
   const [isClicked, setIsClicked] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [show, setShow] = useState(true);
 
 
   const modelRef = useRef();
-  const cameraRef = useRef();
-  const camera = useRef();
-  const mainRef = useRef();
-  const fRef = useRef();
 
 
+  const [changeState, setChangeState] = useState();
+  const [device, setDevice] = useState(false);
+
+  const [isShow, setIsShow] = useState();
   // if (process.env.NODE_ENV === 'development') {
   //   studio.initialize()
   //   studio.extend(extension)
   // }
 
+  useEffect(() => {
+    if (isShow) {
+      // console.log("hi");
+      setShow(true);
+    } else {
+      // console.log("no scrolling");
+      setShow(false);
+    }
+  }, [isShow])
 
-
-
-  // cameraRef?.current?.rotation.set(0, -1, 0);
   const [open, setOpen] = useState(false);
   const [mdata, setMdata] = useState([]);
 
-  const onOpenModal = () => setOpen(true);
-  const onCloseModal = () => setOpen(false);
-
   function openModal() {
-    setOpen(true)
+    setOpen(true);
   }
 
+  // console.log(mdata);
+
+  useEffect(() => {
+    window.onresize = () => {
+      if (window.innerWidth < 1025) {
+        setDevice(true)
+        setChangeState(demoProjectState)
+      } else {
+        setDevice(false)
+        setChangeState(demoState)
+      }
+    }
+    if (window.innerWidth < 1025) {
+      setDevice(true)
+      setChangeState(demoProjectState)
+    } else {
+      setDevice(false)
+      setChangeState(demoState)
+    }
+    isClicked && setTimeout(() => {
+      // console.log("i am back");
+    }, 1500);
 
 
-  const demoSheet = getProject('sheet', { state: demoProjectState }).sheet('sheet')
-  // const demoSheet = getProject('Demo').sheet('sheet')
+
+    // console.log(isShow);
+  }, [isClicked, isShow])
+
+
+
+
+
+
+  const demoSheet = getProject('Mobile_Demo', { state: demoProjectState }).sheet('Mobile_Demo')
+  const demoSheet2 = getProject('Large_demo', { state: demoState }).sheet('Large_demo')
 
   const [modRef, setModRef] = useState();
-
-  // const modControls = useControls('Model', {
-  //   position: { value: [7.5, 1.4, 3.0], label: 'Position' },
-  //   rotation: { value: [0, 0, 0], label: 'Rotation' },
-  // });
 
 
 
@@ -136,6 +175,8 @@ export default function App() {
   }, [])
 
 
+
+
   gsap.registerPlugin(ScrollTrigger);
 
   useEffect(() => {
@@ -143,50 +184,35 @@ export default function App() {
       setLoading(false);
     }, 2000);
 
-    const tl = gsap.timeline();
-
-
-    tl.fromTo(
-      cameraRef?.current?.position,
-      {
-        x: 9,
-      },
-      {
-        x: 7.5,
-        y: 3.5,
-        z: 2.8,
-        duration: 1,
-      }
-    );
-
-
-    console.log("modRef", modRef);
-    // modRef?.position.set(1,1,0)
-    tl.fromTo(
-      modRef?.position,
-      {
-        x: 9,
-      },
-      {
-        x: 7.5,
-        y: 1.4,
-        z: 3.0,
-        duration: 1,
-      }
-    );
-
-
-
     // Add your other animations with ScrollTrigger here
 
   }, [modRef, modelRef.position]);
 
   // Use GSAP for smooth updates
 
+  function openAnimation() {
+    const tl = gsap.timeline()
 
+    tl.fromTo(
+      modRef?.position,
+      {
+        z: 1,
+      },
+      {
+        z: 0,
+
+        duration: 1,
+      }
+    );
+
+  }
 
   return (
-    <div className="w-full h-screen relative">
+    <div className="w-full h-screen relative" >
+      <div>
+        <Mytag />
+    
+      </div>
 
       <Canvas
         gl={{ antialias: true, toneMapping: THREE.NoToneMapping }}
@@ -194,73 +220,97 @@ export default function App() {
           gl.toneMapping = THREE.ACESFilmicToneMapping;
           gl.outputEncoding = THREE.sRGBEncoding;
         }}
-        style={{ pointerEvents: 'none' }}
-        // style={{ visibility: isClicked ? 'visible' : 'hidden', position: 'fixed' }}
+        style={{ visibility: isClicked ? 'visible' : 'hidden', position: 'fixed' }}
         className={`fixed top-0 w-full pointer-events-none bg-transparent canvasStyle`}
+      // onScroll={() => { console.log("hi") }}
       >
-        <SheetProvider sheet={demoSheet}>
-          <Suspense fallback={null}>
-            {/* <CameraScene cameraRef={cameraRef} /> */}
+        <Suspense fallback={<p className='text-black'>Loading ....</p>}>
+          {device ?
+            <SheetProvider sheet={demoSheet}>
 
-            <PerspectiveCamera
-              // ref={camera}
-              theatreKey="Camera"
-              position={[8.8, -0.2, 0.6]}
-              rotation={[0, 0, 0]}
-              shadow={{
-                bias: 0.001,
-                near: 0.1,
-                far: 1000,
-                focus: 1,
-                fov: 30,
-              }}
-              // rotateY={10}
-              makeDefault
-            />
-            <ScrollControls pages={3} damping={0.5}>
+              <ScrollControls pages={3} damping={0.5}>
+                <CheckScorlling setIsShow={setIsShow} isShow={isShow} />
+                <PerspectiveCamera
+                  // ref={camera}
+                  theatreKey="Camera"
+                  position={[1.27, 1.75, 1.1]}
+                  rotation={[0, 0, 0]}
+                  shadow={{
+                    bias: 0.001,
+                    near: 0.1,
+                    far: 1000,
+                    focus: 1,
+                    fov: 30,
+                  }}
+                  // rotateY={10}
+                  makeDefault
+                />
+                <ambientLight />
+                <e.pointLight theatreKey="Light" position={[10, 10, 10]} />
+                <e.mesh ref={(el) => setModRef(el)} theatreKey="Cube">
+                  <Suspense fallback={true}>
+                    <Model
+                      setOpen={setOpen} openModal={openModal} mdata={mdata} setMdata={setMdata} />
+                  </Suspense>
+                </e.mesh>
 
-              <e.mesh
-                theatreKey="Cube"
-                // ref={(el) => {
-                //   modelRef.current = el;
-                //   setModRef(el);
-                // }}
+              </ScrollControls>
 
-                castShadow
-                receiveShadow
-                position={[11, 1.4, 1.71]}
-                rotation={[0, 1.55, 0]}
-              >
+            </SheetProvider> :
+            <SheetProvider sheet={demoSheet2}>
 
-                <Center>
-                  <Model ref={modelRef} mdata={mdata} setMdata={setMdata} setOpen={setOpen} />
-                </Center>
-              </e.mesh>
+              <ScrollControls pages={3} damping={0.5}>
+                <CheckScorlling setIsShow={setIsShow} isShow={isShow} />
+                <PerspectiveCamera
+                  // ref={camera}
+                  theatreKey="Camera"
+                  position={[1.27, 1.75, 1.1]}
+                  rotation={[0, 0, 0]}
+                  shadow={{
+                    bias: 0.001,
+                    near: 0.1,
+                    far: 1000,
+                    focus: 1,
+                    fov: 30,
+                  }}
+                  // rotateY={10}
+                  makeDefault
+                />
+                <ambientLight />
+                <e.pointLight theatreKey="Light" position={[10, 10, 10]} />
+                <e.mesh ref={(el) => setModRef(el)} theatreKey="Cube">
+                  <Suspense fallback={true}>
+                    <Model
+                      setOpen={setOpen} openModal={openModal} mdata={mdata} setMdata={setMdata} />
+                  </Suspense>
+                </e.mesh>
 
+              </ScrollControls>
 
-              <Scroll oll html className="snap-mandatory snap-y">
-
-
-
-              </Scroll>
-            </ScrollControls>
-            <OrbitControls enableZoom={false} enableRotate={false} />
-          </Suspense>
-        </SheetProvider>
+            </SheetProvider>}
+        </Suspense>
       </Canvas>
-
-      {/* {!isClicked && !loading && (
+      
+      <div className=' absolute left-[33vw] sm:left-[45vw] flex items-center gap-3 p-3 rounded-full text-white bottom-[3vw]' style={{
+        background: "#000000db",
+        visibility: isClicked && !show ? 'visible' : 'hidden', position: 'fixed'
+      }}
+      >
+        <Lottie animationData={animation} className='w-[30px]' loop={true} />
+        <p> Scroll down </p>
+      </div>
+      {!isClicked && !loading && (
         <div className="w-full h-screen bg-black absolute z-[999999999] top-0 left-0">
-          <TypingEffect setIsClicked={setIsClicked} />
+          <TypingEffect setIsClicked={setIsClicked} openAnimation={openAnimation} />
         </div>
-      )} */}
+      )}
 
 
       <div className={`backdrop-blur-[30px] ${open ? 'flex' : 'hidden'} top-0 left-0 w-screen justify-center items-center fixed h-screen z-[9999999]`}>
         <button className='text-black bg-white p-3 absolute right-7 top-5' onClick={() => {
           setOpen(false)
         }}>✖</button>
-        <div className=' bg-slate-800 p-5 font-bold text-white h-auto w-[50%] rounded-3xl'>
+        <div className='sm:w-auto bg-slate-800 p-5 font-bold text-white h-auto w-[50%] rounded-3xl' style={{ width: "auto" }}>
           <h1 className=' text-3xl'>{mdata?.name}</h1>
           <br />
           <div className='flex justify-center w-full'>
@@ -270,6 +320,8 @@ export default function App() {
               className={` rounded-lg `}
               width={700}
               height={700}
+              priority
+              loading='eager'
             />
           </div>
           <br />
@@ -277,9 +329,12 @@ export default function App() {
             <h3 className='text-2xl'>Description</h3>
             <p className=' font-normal'>{mdata?.description}</p>
             <br />
+            <Link className=' relative bottom-[10px]' href={`${mdata?.link}`}>{mdata?.link}</Link>
+            <br />
+
             <p>Tags</p>
 
-            <div className='flex gap-3'>
+            <div className='flex flex-wrap gap-3'>
               {mdata?.tags?.map((el, i) => (
                 <div key={i}>
                   <p className='font-normal'>#{el}</p>

@@ -43,21 +43,24 @@ canvas.canvasStyle {
 }
 
 /* Track */
-::-webkit-scrollbar-track {
+@media only screen and (min-width: 600px) {
+  ::-webkit-scrollbar-track {
 
-  border-radius: 10px;
-}
-
-
-::-webkit-scrollbar-thumb {
-  background: #383838;
-  border-radius: 10px;
-  box-shadow: 1px 1px 1px 1px black;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #0a0a14;
+    border-radius: 10px;
+  }
+  
+  
+  ::-webkit-scrollbar-thumb {
+    background: #383838;
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px 1px black;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #0a0a14;
+  }
+  
 }
 
 #custom-cursor {
