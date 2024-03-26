@@ -20,9 +20,6 @@ import Image from 'next/image';
 import Mytag from '@/components/Headers';
 import Lottie from "lottie-react";
 import animation from "../pages/projects/animation.json";
-import Link from 'next/link'
-import AnimatedMouse from '@/components/Mouse';
-
 // import styles from "@/styles/Project.module.css";
 
 // const CameraScene = (props) => {
@@ -211,9 +208,7 @@ export default function App() {
     <div className="w-full h-screen relative" >
       <div>
         <Mytag />
-
       </div>
-      {/* <AnimatedMouse /> */}
       <Canvas
         gl={{ antialias: true, toneMapping: THREE.NoToneMapping }}
         onCreated={({ gl }) => {
@@ -222,7 +217,7 @@ export default function App() {
         }}
         style={{ visibility: isClicked ? 'visible' : 'hidden', position: 'fixed' }}
         className={`fixed top-0 w-full pointer-events-none bg-transparent canvasStyle`}
-      // onScroll={() => { console.log("hi") }}
+        // onScroll={() => { console.log("hi") }}
       >
         <Suspense fallback={<p className='text-black'>Loading ....</p>}>
           {device ?
@@ -290,7 +285,6 @@ export default function App() {
             </SheetProvider>}
         </Suspense>
       </Canvas>
-
       <div className=' absolute left-[33vw] sm:left-[45vw] flex items-center gap-3 p-3 rounded-full text-white bottom-[3vw]' style={{
         background: "#000000db",
         visibility: isClicked && !show ? 'visible' : 'hidden', position: 'fixed'
@@ -329,9 +323,6 @@ export default function App() {
             <h3 className='text-2xl'>Description</h3>
             <p className=' font-normal'>{mdata?.description}</p>
             <br />
-            <Link className=' relative bottom-[10px]' href={`${mdata?.link}`}>{mdata?.link}</Link>
-            <br />
-
             <p>Tags</p>
 
             <div className='flex flex-wrap gap-3'>
