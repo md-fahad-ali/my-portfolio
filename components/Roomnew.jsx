@@ -353,7 +353,7 @@ export function Model(props) {
         position={[1.154, 1.709, -0.695]}
         rotation={[1.558, 0.013, -3.11]}
       >
-        <Html
+        {/* <Html
           className="w-[375px] h-[210px] overflow-hidden scale-[0.5] bg-black"
           style={{
             transform: "rotateY(180deg)",
@@ -373,14 +373,14 @@ export function Model(props) {
           >
             {another ? (
               <div className="text-white">
-                {/* {console.log("props", props)} */}
+               
                 <Contact />
               </div>
             ) : (
               <Home />
             )}
           </div>
-        </Html>
+        </Html> */}
       </mesh>
       <mesh
         geometry={nodes.monitor2.geometry}
@@ -389,7 +389,7 @@ export function Model(props) {
         rotation={[0, 0.002, -Math.PI / 2]}
       >
         {/* <meshBasicMaterial map={texture} /> */}
-        <Html
+        {/* <Html
           as="div"
           center
           fullscreen
@@ -407,7 +407,7 @@ export function Model(props) {
           // rotation={modControls.rotation}
         >
           <Menu setOpen={props.setOpen} mdata={mdata} setMdata={setMdata} />
-        </Html>
+        </Html> */}
       </mesh>
       <mesh
         geometry={nodes.Text001.geometry}

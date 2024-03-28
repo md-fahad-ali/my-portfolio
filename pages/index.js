@@ -211,7 +211,7 @@ export default function App() {
     <div className="w-full h-screen relative" >
       <div>
         <Mytag />
-    
+
       </div>
 
       <Canvas
@@ -224,7 +224,7 @@ export default function App() {
         className={`fixed top-0 w-full pointer-events-none bg-transparent canvasStyle`}
       // onScroll={() => { console.log("hi") }}
       >
-        <Suspense fallback={<p className='text-black'>Loading ....</p>}>
+        <Suspense fallback={<Html><p>Loading...</p></Html>}>
           {device ?
             <SheetProvider sheet={demoSheet}>
 
@@ -248,10 +248,9 @@ export default function App() {
                 <ambientLight />
                 <e.pointLight theatreKey="Light" position={[10, 10, 10]} />
                 <e.mesh ref={(el) => setModRef(el)} theatreKey="Cube">
-                  <Suspense fallback={true}>
-                    <Model
-                      setOpen={setOpen} openModal={openModal} mdata={mdata} setMdata={setMdata} />
-                  </Suspense>
+
+                  <Model setOpen={setOpen} openModal={openModal} mdata={mdata} setMdata={setMdata} />
+
                 </e.mesh>
 
               </ScrollControls>
@@ -279,10 +278,10 @@ export default function App() {
                 <ambientLight />
                 <e.pointLight theatreKey="Light" position={[10, 10, 10]} />
                 <e.mesh ref={(el) => setModRef(el)} theatreKey="Cube">
-                  <Suspense fallback={<p>Loading ....</p>}>
+                  
                     <Model
                       setOpen={setOpen} openModal={openModal} mdata={mdata} setMdata={setMdata} />
-                  </Suspense>
+                  
                 </e.mesh>
 
               </ScrollControls>
@@ -290,7 +289,7 @@ export default function App() {
             </SheetProvider>}
         </Suspense>
       </Canvas>
-      
+
       <div className=' absolute left-[33vw] sm:left-[45vw] flex items-center gap-3 p-3 rounded-full text-white bottom-[3vw]' style={{
         background: "#000000db",
         visibility: isClicked && !show ? 'visible' : 'hidden', position: 'fixed'
@@ -299,6 +298,7 @@ export default function App() {
         <Lottie animationData={animation} className='w-[30px]' loop={true} />
         <p> Scroll down </p>
       </div>
+
       {!isClicked && !loading && (
         <div className="w-full h-screen bg-black absolute z-[999999999] top-0 left-0">
           <TypingEffect setIsClicked={setIsClicked} openAnimation={openAnimation} />
